@@ -1,4 +1,5 @@
-FROM ubi9
+# FROM ubi9
+FROM registry.fedoraproject.org/fedora:40
 COPY setup.sh .
 RUN ./setup.sh
 
