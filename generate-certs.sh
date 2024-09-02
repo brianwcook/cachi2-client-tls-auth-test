@@ -1,4 +1,10 @@
 #~/bin/bash
+mkdir -p certificates
+cd certificates
+rm *
+
+
+# todo - extend lifespan of all certs to 10 years
 
 # generate CA cert
 openssl genrsa   -out myCA.key 4096
@@ -28,15 +34,4 @@ openssl \
   -subj "/C=US/ST=NC/L=Raleigh/O=server/OU=IntegrationTest/CN=localhost/emailAddress=localhost@www.example.com" 
 openssl x509 -req -in localhost.csr -CA myCA.crt -CAkey myCA.key -set_serial 01 -out localhost.crt
 
-
-# put certs in place
-mkdir "/etc/pki/nginx"
-chown -R nginx:nginx "/etc/pki/nginx"
-chmod 700 "/etc/pki/nginx"
-
-cp localhost.crt "/etc/pki/nginx/server.crt"
-cp localhost.key "/etc/pki/nginx/server.key"
-cp myCA.crt "/etc/pki/myCA.crt"
-
-# start nginx
-nginx
+cd ..
